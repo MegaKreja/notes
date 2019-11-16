@@ -2,4 +2,15 @@
   h1 {
     text-align: center;
   }
+
+  .addNoteBtn {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 5%;
+  }
+}
+
+.ui.modal > .content {
+  padding: 0;
+  background-color: #f7eb9d;
 }
