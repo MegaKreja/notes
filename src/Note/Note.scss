@@ -1,0 +1,14 @@
+.note {
+  width: 200px;
+  height: 200px;
+  background-color: #f7eb9d;
+  margin: 5% auto;
+  position: relative;
+
+  h6 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-right: 10px;
+  }
+}
