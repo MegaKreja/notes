@@ -5,7 +5,7 @@ import './NoteForm.scss';
 const NoteForm = props => {
   return (
     <div className='noteForm'>
-      <div className='titleAuthor'>
+      <div className='formRowWrapper'>
         <Input
           onChange={props.changeAuthor}
           placeholder='Enter author name...'
