@@ -9,6 +9,15 @@
     margin: 0 auto;
     margin-bottom: 5%;
   }
+
+  .filterNotesInput {
+    display: block;
+    input {
+      display: block;
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
 }
 
 .ui.modal > .content {

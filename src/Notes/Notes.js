@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal } from 'semantic-ui-react';
+import { Button, Modal, Input } from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faStickyNote,
@@ -13,6 +13,7 @@ import './Notes.scss';
 import axios from 'axios';
 
 const Notes = props => {
+  const [originalNotes, setOriginalNotes] = useState([]);
   const [notes, setNotes] = useState([]);
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
@@ -23,6 +24,7 @@ const Notes = props => {
     axios
       .get('./notes.json')
       .then(notes => {
+        setOriginalNotes(notes.data);
         setNotes(notes.data);
       })
       .catch(err => console.log(err));
@@ -49,25 +51,35 @@ const Notes = props => {
   };
 
   const handleAddNote = () => {
-    const newNotes = [...notes];
+    const newNotes = [...originalNotes];
     newNotes.push({ title, body, author, date: new Date().toUTCString() });
+    setOriginalNotes(newNotes);
     setNotes(newNotes);
     handleClose();
   };
 
   const handleRemoveNote = index => {
-    const splicedNotes = [...notes];
+    const splicedNotes = [...originalNotes];
     splicedNotes.splice(index, 1);
+    setOriginalNotes(splicedNotes);
     setNotes(splicedNotes);
   };
 
   const handleSortNotes = () => {
-    const sortedNotes = [...notes];
+    const sortedNotes = [...originalNotes];
     sortedNotes.sort((a, b) => {
       return new Date(b.date) - new Date(a.date);
     });
-    console.log(sortedNotes);
     setNotes(sortedNotes);
+  };
+
+  const handleFilterNotes = value => {
+    let filteredNotes = [...originalNotes];
+    console.log(filteredNotes);
+    filteredNotes = filteredNotes.filter(({ title }) => {
+      return title.toLowerCase().search(value.toLowerCase()) !== -1;
+    });
+    setNotes(filteredNotes);
   };
 
   const notesList = notes.map((note, i) => (
@@ -95,6 +107,11 @@ const Notes = props => {
         <FontAwesomeIcon className='sortNotes' icon={faSort} size='1x' />
         Sort Notes
       </Button>
+      <Input
+        className='filterNotesInput'
+        onChange={e => handleFilterNotes(e.target.value)}
+        placeholder='Filter notes...'
+      />
       {notesList}
       <Modal
         size='tiny'
