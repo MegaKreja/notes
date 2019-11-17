@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faStickyNote,
   faCheckCircle,
-  faMinusCircle
+  faMinusCircle,
+  faSort
 } from '@fortawesome/free-solid-svg-icons';
 import Note from '../Note/Note';
 import NoteForm from '../NoteForm/NoteForm';
@@ -49,7 +50,7 @@ const Notes = props => {
 
   const handleAddNote = () => {
     const newNotes = [...notes];
-    newNotes.push({ title, body, author });
+    newNotes.push({ title, body, author, date: new Date().toUTCString() });
     setNotes(newNotes);
     handleClose();
   };
@@ -57,8 +58,16 @@ const Notes = props => {
   const handleRemoveNote = index => {
     const splicedNotes = [...notes];
     splicedNotes.splice(index, 1);
-    console.log(splicedNotes, index);
     setNotes(splicedNotes);
+  };
+
+  const handleSortNotes = () => {
+    const sortedNotes = [...notes];
+    sortedNotes.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date);
+    });
+    console.log(sortedNotes);
+    setNotes(sortedNotes);
   };
 
   const notesList = notes.map((note, i) => (
@@ -82,6 +91,10 @@ const Notes = props => {
   return (
     <div className='notes'>
       <h1>Notes</h1>
+      <Button className='sortNotesBtn' onClick={handleSortNotes}>
+        <FontAwesomeIcon className='sortNotes' icon={faSort} size='1x' />
+        Sort Notes
+      </Button>
       {notesList}
       <Modal
         size='tiny'
