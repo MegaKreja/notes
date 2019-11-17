@@ -2,26 +2,31 @@
   {
     "title": "Note 1",
     "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    "author": "Pablo"
+    "author": "Pablo",
+    "date": "Sun, 15 Nov 2019 11:21:55 GMT"
   },
   {
     "title": "Note 2",
     "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    "author": "Rodrigo"
+    "author": "Rodrigo",
+    "date": "Sun, 14 Nov 2019 19:05:29 GMT"
   },
   {
     "title": "Note 3",
     "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    "author": "Ramon"
+    "author": "Ramon",
+    "date": "Sun, 12 Nov 2019 21:02:59 GMT"
   },
   {
     "title": "Note 4",
     "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    "author": "Fernando"
+    "author": "Fernando",
+    "date": "Sun, 13 Nov 2019 22:11:12 GMT"
   },
   {
     "title": "Note 5",
     "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    "author": "Jose"
+    "author": "Jose",
+    "date": "Sun, 10 Nov 2019 20:10:10 GMT"
   }
 ]
