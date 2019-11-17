@@ -54,8 +54,22 @@ const Notes = props => {
     handleClose();
   };
 
+  const handleRemoveNote = index => {
+    const splicedNotes = [...notes];
+    splicedNotes.splice(index, 1);
+    console.log(splicedNotes, index);
+    setNotes(splicedNotes);
+  };
+
   const notesList = notes.map((note, i) => (
-    <Note key={i} title={note.title} body={note.body} author={note.author} />
+    <Note
+      key={i}
+      index={i}
+      title={note.title}
+      body={note.body}
+      author={note.author}
+      removeNote={handleRemoveNote}
+    />
   ));
 
   const addNoteModal = (

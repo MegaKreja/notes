@@ -1,6 +1,6 @@
 .note {
-  width: 200px;
-  height: 200px;
+  max-width: 300px;
+  height: 300px;
   background-color: #f7eb9d;
   margin: 5% auto;
   position: relative;
@@ -10,5 +10,15 @@
     bottom: 0;
     right: 0;
     padding-right: 10px;
+  }
+
+  .deleteWrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 3%;
+
+    .removeNoteIcon {
+      cursor: pointer;
+    }
   }
 }
