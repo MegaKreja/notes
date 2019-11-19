@@ -3,30 +3,35 @@
     "title": "Note 1",
     "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "author": "Pablo",
-    "date": "Sun, 09 Nov 2019 11:21:55 GMT"
+    "date": "Sun, 09 Nov 2019 11:21:55 GMT",
+    "checked": false
   },
   {
     "title": "Booking",
     "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "author": "Rodrigo",
-    "date": "Sun, 14 Nov 2019 19:05:29 GMT"
+    "date": "Sun, 14 Nov 2019 19:05:29 GMT",
+    "checked": true
   },
   {
     "title": "Rock",
     "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "author": "Ramon",
-    "date": "Sun, 12 Nov 2019 21:02:59 GMT"
+    "date": "Sun, 12 Nov 2019 21:02:59 GMT",
+    "checked": false
   },
   {
     "title": "Dentist",
     "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "author": "Fernando",
-    "date": "Sun, 13 Nov 2019 22:11:12 GMT"
+    "date": "Sun, 13 Nov 2019 22:11:12 GMT",
+    "checked": false
   },
   {
     "title": "Boxing",
     "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "author": "Jose",
-    "date": "Sun, 16 Nov 2019 20:10:10 GMT"
+    "date": "Sun, 16 Nov 2019 20:10:10 GMT",
+    "checked": true
   }
 ]
