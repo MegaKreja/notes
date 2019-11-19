@@ -17,6 +17,7 @@ const NoteForm = props => {
         fluid
         placeholder='Enter note text...'
       />
+      {props.errorMsg !== '' && <p>{props.errorMsg}</p>}
     </div>
   );
 };
