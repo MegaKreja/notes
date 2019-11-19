@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Button, Modal, Input } from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faStickyNote,
   faCheckCircle,
   faMinusCircle,
-  faSort
+  faSort,
+  faPenSquare
 } from '@fortawesome/free-solid-svg-icons';
 import Note from '../Note/Note';
 import NoteForm from '../NoteForm/NoteForm';
@@ -15,10 +16,12 @@ import axios from 'axios';
 const Notes = props => {
   const [originalNotes, setOriginalNotes] = useState([]);
   const [notes, setNotes] = useState([]);
-  const [open, setOpen] = useState(false);
+  const [drafts, setDrafts] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [author, setAuthor] = useState('');
+  const [draftsOpen, setDraftsOpen] = useState(false);
 
   useEffect(() => {
     axios
@@ -31,11 +34,11 @@ const Notes = props => {
   }, []);
 
   const handleOpen = () => {
-    setOpen(true);
+    setOpenModal(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpenModal(false);
   };
 
   const onChangeTitle = e => {
@@ -52,17 +55,46 @@ const Notes = props => {
 
   const handleAddNote = () => {
     const newNotes = [...originalNotes];
-    newNotes.push({ title, body, author, date: new Date().toUTCString() });
+    newNotes.push({
+      title,
+      body,
+      author,
+      date: new Date().toUTCString()
+    });
+    setTitle('');
+    setBody('');
+    setAuthor('');
     setOriginalNotes(newNotes);
     setNotes(newNotes);
     handleClose();
   };
 
+  const handleDraftNote = () => {
+    const newDraftNotes = [...drafts];
+    newDraftNotes.push({
+      title,
+      body,
+      author,
+      date: new Date().toUTCString()
+    });
+    setTitle('');
+    setBody('');
+    setAuthor('');
+    setDrafts(newDraftNotes);
+    handleClose();
+  };
+
   const handleRemoveNote = index => {
-    const splicedNotes = [...originalNotes];
-    splicedNotes.splice(index, 1);
-    setOriginalNotes(splicedNotes);
-    setNotes(splicedNotes);
+    if (!draftsOpen) {
+      const splicedNotes = [...originalNotes];
+      splicedNotes.splice(index, 1);
+      setOriginalNotes(splicedNotes);
+      setNotes(splicedNotes);
+    } else {
+      const splicedDrafts = [...drafts];
+      splicedDrafts.splice(index, 1);
+      setDrafts(splicedDrafts);
+    }
   };
 
   const handleSortNotes = () => {
@@ -82,7 +114,50 @@ const Notes = props => {
     setNotes(filteredNotes);
   };
 
-  const notesList = notes.map((note, i) => (
+  const openDrafts = () => {
+    const isDraftsOpen = draftsOpen;
+    setDraftsOpen(!isDraftsOpen);
+  };
+
+  const addNoteBtn = (
+    <Button onClick={handleOpen} className='addNoteBtn' color='blue'>
+      <FontAwesomeIcon className='addNoteIcon' icon={faStickyNote} size='1x' />
+      Add a note
+    </Button>
+  );
+
+  const addNoteModal = (
+    <Modal
+      size='tiny'
+      open={openModal}
+      trigger={addNoteBtn}
+      onClose={handleClose}
+    >
+      <Modal.Content>
+        <NoteForm
+          close={handleClose}
+          changeTitle={onChangeTitle}
+          changeAuthor={onChangeAuthor}
+          changeBody={onChangeBody}
+          draftsOpen={draftsOpen}
+        />
+      </Modal.Content>
+      <Modal.Actions>
+        <Button onClick={handleDraftNote} color='red'>
+          <FontAwesomeIcon icon={faMinusCircle} size='1x' />
+          Save to Drafts
+        </Button>
+        <Button onClick={handleAddNote} color='green'>
+          <FontAwesomeIcon icon={faCheckCircle} size='1x' />
+          Save
+        </Button>
+      </Modal.Actions>
+    </Modal>
+  );
+
+  const selectedNotes = !draftsOpen ? notes : drafts;
+
+  const notesList = selectedNotes.map((note, i) => (
     <Note
       key={i}
       index={i}
@@ -93,59 +168,28 @@ const Notes = props => {
     />
   ));
 
-  const addNoteModal = (
-    <Button onClick={handleOpen} className='addNoteBtn' color='blue'>
-      <FontAwesomeIcon className='addNoteIcon' icon={faStickyNote} size='1x' />
-      Add a note
-    </Button>
-  );
-
   return (
     <div className='notes'>
       <h1>Notes</h1>
-      <Button className='sortNotesBtn' onClick={handleSortNotes}>
-        <FontAwesomeIcon className='sortNotes' icon={faSort} size='1x' />
-        Sort Notes
+      <Button onClick={openDrafts} className='draftsBtn' color='olive'>
+        <FontAwesomeIcon icon={faPenSquare} size='1x' />
+        {!draftsOpen ? 'Open Drafts' : 'Open Notes'}
       </Button>
-      <Input
-        className='filterNotesInput'
-        onChange={e => handleFilterNotes(e.target.value)}
-        placeholder='Filter notes...'
-      />
-      {notesList}
-      <Modal
-        size='tiny'
-        open={open}
-        trigger={addNoteModal}
-        onClose={handleClose}
-      >
-        <Modal.Content>
-          <NoteForm
-            close={handleClose}
-            changeTitle={onChangeTitle}
-            changeAuthor={onChangeAuthor}
-            changeBody={onChangeBody}
+      {!draftsOpen && (
+        <Fragment>
+          {addNoteModal}
+          <Button className='sortNotesBtn' onClick={handleSortNotes}>
+            <FontAwesomeIcon className='sortNotes' icon={faSort} size='1x' />
+            Sort Notes
+          </Button>
+          <Input
+            className='filterNotesInput'
+            onChange={e => handleFilterNotes(e.target.value)}
+            placeholder='Filter notes...'
           />
-        </Modal.Content>
-        <Modal.Actions>
-          <Button onClick={handleClose} color='red'>
-            <FontAwesomeIcon
-              className='addNoteIcon'
-              icon={faMinusCircle}
-              size='1x'
-            />
-            No
-          </Button>
-          <Button onClick={handleAddNote} color='green'>
-            <FontAwesomeIcon
-              className='addNoteIcon'
-              icon={faCheckCircle}
-              size='1x'
-            />
-            Yes
-          </Button>
-        </Modal.Actions>
-      </Modal>
+        </Fragment>
+      )}
+      {notesList}
     </div>
   );
 };
