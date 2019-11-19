@@ -22,6 +22,7 @@ const Notes = props => {
   const [body, setBody] = useState('');
   const [author, setAuthor] = useState('');
   const [draftsOpen, setDraftsOpen] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
     axios
@@ -55,33 +56,42 @@ const Notes = props => {
 
   const handleAddNote = () => {
     const newNotes = [...originalNotes];
-    newNotes.push({
-      title,
-      body,
-      author,
-      date: new Date().toUTCString()
-    });
-    setTitle('');
-    setBody('');
-    setAuthor('');
-    setOriginalNotes(newNotes);
-    setNotes(newNotes);
-    handleClose();
+    if (title === '' && body === '' && author === '') {
+      setErrorMsg('Please fill all the fields!');
+    } else {
+      newNotes.push({
+        title,
+        body,
+        author,
+        date: new Date().toUTCString()
+      });
+      setTitle('');
+      setBody('');
+      setAuthor('');
+      setErrorMsg('');
+      setOriginalNotes(newNotes);
+      setNotes(newNotes);
+      handleClose();
+    }
   };
 
   const handleDraftNote = () => {
     const newDraftNotes = [...drafts];
-    newDraftNotes.push({
-      title,
-      body,
-      author,
-      date: new Date().toUTCString()
-    });
-    setTitle('');
-    setBody('');
-    setAuthor('');
-    setDrafts(newDraftNotes);
-    handleClose();
+    if (title === '' && body === '' && author === '') {
+      setErrorMsg('Please fill all the fields!');
+    } else {
+      newDraftNotes.push({
+        title,
+        body,
+        author,
+        date: new Date().toUTCString()
+      });
+      setTitle('');
+      setBody('');
+      setAuthor('');
+      setDrafts(newDraftNotes);
+      handleClose();
+    }
   };
 
   const handleRemoveNote = index => {
@@ -119,6 +129,19 @@ const Notes = props => {
     setDraftsOpen(!isDraftsOpen);
   };
 
+  const publishDraft = (title, body, author, index) => {
+    const newNotes = [...notes];
+    handleRemoveNote(index);
+    newNotes.push({
+      title,
+      body,
+      author,
+      date: new Date().toUTCString()
+    });
+    setOriginalNotes(newNotes);
+    setNotes(newNotes);
+  };
+
   const addNoteBtn = (
     <Button onClick={handleOpen} className='addNoteBtn' color='blue'>
       <FontAwesomeIcon className='addNoteIcon' icon={faStickyNote} size='1x' />
@@ -140,6 +163,7 @@ const Notes = props => {
           changeAuthor={onChangeAuthor}
           changeBody={onChangeBody}
           draftsOpen={draftsOpen}
+          errorMsg={errorMsg}
         />
       </Modal.Content>
       <Modal.Actions>
@@ -164,7 +188,10 @@ const Notes = props => {
       title={note.title}
       body={note.body}
       author={note.author}
+      notes={notes}
       removeNote={handleRemoveNote}
+      draftsOpen={draftsOpen}
+      publishDraft={publishDraft}
     />
   ));
 

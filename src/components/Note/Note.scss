@@ -5,11 +5,15 @@
   margin: 5% auto;
   position: relative;
 
-  h6 {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    padding-right: 10px;
+  .checkWrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  .publishNoteBtn {
+    display: block;
+    margin: 0 auto;
   }
 
   h2,

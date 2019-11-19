@@ -1,10 +1,12 @@
 import React from 'react';
+import { Checkbox, Segment, Button } from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import './Note.scss';
 
 const Note = props => {
-  const { title, body, author, index } = props;
+  const { title, body, author, index, notes } = props;
+  const isChecked = notes[index].checked;
 
   return (
     <div className='note'>
@@ -19,7 +21,25 @@ const Note = props => {
         />
       </div>
       <p>{body}</p>
-      <h6>{author}</h6>
+      <div className='checkWrapper'>
+        {!props.draftsOpen ? (
+          <Segment compact>
+            <Checkbox checked={isChecked} />
+          </Segment>
+        ) : (
+          <div></div>
+        )}
+        <h6>{author}</h6>
+      </div>
+      {props.draftsOpen && (
+        <Button
+          onClick={() => props.publishDraft(title, body, author, index)}
+          className='publishNoteBtn'
+          color='blue'
+        >
+          Publish Draft
+        </Button>
+      )}
     </div>
   );
 };
